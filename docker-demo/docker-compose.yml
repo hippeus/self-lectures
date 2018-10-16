@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  webapp:
+    image: macpla/srv2
+    networks:
+      - frontend
+      - backend
+
+  appd:
+    image: macpla/clt2
+    networks:
+      - frontend
+
+  app-db:
+    image: postgres:latest
+    networks:
+      - backend
+    volumes:
+      - app-data:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo123
+      POSTGRES_DB: demoapp
+
+volumes:
+  app-data:
+
+networks:
+  frontend:
+  backend:
